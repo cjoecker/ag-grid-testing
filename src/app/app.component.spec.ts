@@ -1,31 +1,29 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed} from "@angular/core/testing";
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angular/platform-browser-dynamic/testing";
+import {AppComponent} from "./app.component";
+import {FormsModule} from "@angular/forms";
+import {AgGridModule} from "ag-grid-angular";
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
+describe('AG Grid', () => {
+  it('calls grid ready', async()=> {
+    TestBed.resetTestEnvironment();
+    TestBed.initTestEnvironment(BrowserDynamicTestingModule,
+      platformBrowserDynamicTesting());
+
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        FormsModule,
+        AgGridModule.withComponents([]),
       ],
+      declarations: [AppComponent]
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    const component = fixture.componentInstance;
 
-  it(`should have as title 'my-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('my-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('my-app app is running!');
+    expect(component.api).toBeDefined();
+    expect(component.columnApi).toBeDefined();
+
   });
-});
+})
