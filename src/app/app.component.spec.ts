@@ -3,6 +3,7 @@ import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from "@angul
 import {AppComponent} from "./app.component";
 import {FormsModule} from "@angular/forms";
 import {AgGridModule} from "ag-grid-angular";
+import { render, screen } from '@testing-library/angular';
 
 describe('AG Grid', () => {
   it('calls grid ready', async()=> {
@@ -21,9 +22,16 @@ describe('AG Grid', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const component = fixture.componentInstance;
 
+    fixture.componentInstance.ngOnInit()
+
     fixture.detectChanges();
-    expect(component.api).toBeDefined();
-    expect(component.columnApi).toBeDefined();
+
+    await fixture.whenStable();
+    console.log(component.title)
+   // expect(component.api).toBeDefined();
+   // expect(component.columnApi).toBeDefined();
+
+    screen.debug(await screen.findByTestId('test'), Infinity);
 
   });
 })

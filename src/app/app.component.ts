@@ -25,16 +25,13 @@ export class AppComponent implements OnInit {
   api: GridApi | undefined;
   columnApi: ColumnApi | undefined;
 
-
   ngOnInit() {
     console.log("init")
   }
-
   public onGridReady(params: GridReadyEvent) {
-    console.log("grid ready")
+    console.log("test")
     this.api = params.api;
     this.columnApi = params.columnApi;
+    this.title = "grid ready"
   }
-
-
 }
